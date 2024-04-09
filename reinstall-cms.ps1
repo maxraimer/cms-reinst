@@ -218,7 +218,7 @@ if (-not $isPolyvisionCMSInstalled) {
         foreach ($file in $xmlFiles) {
             $copiedFiles++
             Write-Host ">> Copying file $copiedFiles of $($totalFiles): $($file.Name)" -ForegroundColor Yellow
-            Copy-Item -Path $file.FullName -Destination $tempDir -Force
+            Copy-Item -Path $file.FullName -Destination $polyvisionCMSPath -Force
             Start-Sleep -Milliseconds 500
         }
         Write-Host ">> XML files copying finished." -ForegroundColor Green
