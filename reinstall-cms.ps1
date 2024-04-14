@@ -225,7 +225,7 @@ if (-not $isPolyvisionCMSInstalled) {
         Write-Host ">> Polyvision/CMS is installed and configured." -BackgroundColor DarkGreen -ForegroundColor White
     } else {
         Write-Host ""
-        Write-Host ">> No XML files found. You will need to set up Polyvision/CMS manually." -BackgroundColor DarkYellow -ForegroundColor White
+        Write-Host ">> No XML files found. You will need to set up Polyvision/CMS manually." -ForegroundColor Yellow
     }
 } else {
     Start-Sleep -Milliseconds 1000
@@ -305,15 +305,21 @@ Write-Host ">> Starting cleaning proccess..." -BackgroundColor DarkBlue -Foregro
 
 if ($isOldCMSInstalled) {
     Write-Host ">> Removing old CMS..." -ForegroundColor Yellow
-    Remove-Item -Path $oldCMSPath -Recurse
+    try {
+        Remove-Item -Path $oldCMSPath -Recurse
+    } catch {
+        Write-Host ">> Old CMS wasn't removed. Remove it manually." -ForegroundColor Red
+    }
     Write-Host ">> Old CMS removed." -ForegroundColor Green
 } else {
     Write-Host ">> No old CMS. Skipping removing." -ForegroundColor Green
 }
 
-Write-Host ">> Removing temporary directory..." -ForegroundColor Yellow
-Remove-Item -Path $tempDir -Recurse
-Write-Host ">> Temporary directory removed." -ForegroundColor Green
+#Write-Host ">> Removing temporary directory..." -ForegroundColor Yellow
+#Remove-Item -Path $tempDir -Recurse
+#Write-Host ">> Temporary directory removed." -ForegroundColor Green
+Write-Host ">> Cleaning temporary directory is temporary turned off." -ForegroundColor Yellow
+
 
 Write-Host ">> Cleaning done." -BackgroundColor DarkGreen -ForegroundColor White
 
